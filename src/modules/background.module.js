@@ -4,10 +4,11 @@ export class BackgroundModule extends Module {
     trigger(){
         const $colorButton = document.querySelector('[data-type="color"]');
         if($colorButton){
-            $colorButton.addEventListener('click',(event)=>{
-                document.body.style.backgroundColor = this.getRandomColor();
-        });
+            $colorButton.addEventListener('click',this.colorSet.bind(this));
         };
+    }
+    colorSet(){
+        document.body.style.backgroundColor = this.getRandomColor();
     }
     getRandomColor(){
         const letters = '0123456789ABCDEF';

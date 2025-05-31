@@ -5,11 +5,12 @@ export class SoundModule extends Module{
     trigger(){
         const $soundButton = document.querySelector('[data-type="sound"]');
         if($soundButton){
-            $soundButton.addEventListener('click',(event)=>{
-                const sounds = document.querySelectorAll('.sound');
-                sounds[random(0,2)].play();
-        });
+            $soundButton.addEventListener('click',this.playSound.bind(this));
         };
+    }
+    playSound(){
+        const sounds = document.querySelectorAll('.sound');
+        sounds[random(0,2)].play();
     }
     addSoundHTML(){
         const sound1 = document.createElement('audio');

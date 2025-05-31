@@ -4,25 +4,26 @@ import { SoundModule } from './modules/sounds.module';
 
 export class ContextMenu extends Menu {
     open(){
-        document.addEventListener("contextmenu", (event) => {
-            event.preventDefault();
-            this.locationOfMenu(this.el,event);
-            this.add()
-            this.el.classList.add('open');
-        });
+        this.add();
     }
     close(){
        this.el.classList.remove('open');
     }
     add() {
+        document.addEventListener("contextmenu", this.contextMenu.bind(this));
         const backgroundModule = new BackgroundModule('color','Случайный фон');
         this.el.innerHTML = backgroundModule.toHTML();
 
         const soundModule = new SoundModule('sound','Случайный звук');
         this.el.innerHTML = this.el.innerHTML+soundModule.toHTML();
-        backgroundModule.trigger();
         soundModule.addSoundHTML();
+        backgroundModule.trigger();
         soundModule.trigger();
+    }
+    contextMenu(event){
+        event.preventDefault();
+        this.locationOfMenu(this.el,event);
+        this.el.classList.add('open');
     }
     locationOfMenu(thisEl,event){
         const x = event.clientX;
@@ -32,4 +33,5 @@ export class ContextMenu extends Menu {
     }
 }
 const contextmenu = new ContextMenu('.menu')
+//contextmenu.addCircle()
 contextmenu.open()
