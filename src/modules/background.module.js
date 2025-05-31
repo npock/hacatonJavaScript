@@ -2,10 +2,10 @@ import {Module} from '../core/module'
 
 export class BackgroundModule extends Module {
     trigger(){
-        const $button = document.querySelector('[data-type="color"]');
-        if($button){
-            $button.addEventListener('click',(event)=>{
-            document.body.style.backgroundColor = this.getRandomColor();
+        const $colorButton = document.querySelector('[data-type="color"]');
+        if($colorButton){
+            $colorButton.addEventListener('click',(event)=>{
+                document.body.style.backgroundColor = this.getRandomColor();
         });
         };
     }

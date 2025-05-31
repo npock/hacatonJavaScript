@@ -1,5 +1,6 @@
 import {Menu} from './core/menu';
 import { BackgroundModule } from './modules/background.module';
+import { SoundModule } from './modules/sounds.module';
 
 export class ContextMenu extends Menu {
     open(){
@@ -11,12 +12,17 @@ export class ContextMenu extends Menu {
         });
     }
     close(){
-        this.el.classList.remove('open');
+       this.el.classList.remove('open');
     }
     add() {
         const backgroundModule = new BackgroundModule('color','Случайный фон');
         this.el.innerHTML = backgroundModule.toHTML();
+
+        const soundModule = new SoundModule('sound','Случайный звук');
+        this.el.innerHTML = this.el.innerHTML+soundModule.toHTML();
         backgroundModule.trigger();
+        soundModule.addSoundHTML();
+        soundModule.trigger();
     }
     locationOfMenu(thisEl,event){
         const x = event.clientX;
@@ -26,5 +32,4 @@ export class ContextMenu extends Menu {
     }
 }
 const contextmenu = new ContextMenu('.menu')
-console.log(contextmenu)
 contextmenu.open()
