@@ -2,6 +2,7 @@ import {Menu} from './core/menu';
 import { BackgroundModule } from './modules/background.module';
 import { SoundModule } from './modules/sounds.module';
 import { CircleModule } from './modules/circle.module';
+import { TimerModule } from './modules/timer.module';
 
 export class ContextMenu extends Menu {
     open(){
@@ -20,10 +21,15 @@ export class ContextMenu extends Menu {
 
         const circleModule = new CircleModule('circle','Бешеный круг');
         this.el.innerHTML = this.el.innerHTML+circleModule.toHTML();
+
+        const timerModule = new TimerModule('timer','Таймер');
+        this.el.innerHTML = this.el.innerHTML+timerModule.toHTML()
+
         soundModule.addSoundHTML();
         backgroundModule.trigger();
         soundModule.trigger();
         circleModule.trigger();
+        timerModule.trigger();
         console.log(circleModule)
     }
     contextMenu(event){
