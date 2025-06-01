@@ -3,7 +3,6 @@ import {Menu} from './core/menu';
 import { BackgroundModule } from './modules/background.module';
 import { SoundModule } from './modules/sounds.module';
 import { CircleModule } from './modules/circle.module';
-import { TimerModule } from './modules/timer.module';
 import { RandomFigureModule } from './modules/random.figure';
 
 export class ContextMenu extends Menu {
@@ -23,10 +22,6 @@ export class ContextMenu extends Menu {
 
         const circleModule = new CircleModule('circle','Бешеный круг');
         this.el.innerHTML = this.el.innerHTML+circleModule.toHTML();
-
-
-        const timerModule = new TimerModule('timer','Таймер');
-        this.el.innerHTML = this.el.innerHTML+timerModule.toHTML();
       
         const randomFigureModule = new RandomFigureModule('random-figure','Случайная фигура');
         this.el.innerHTML += randomFigureModule.toHTML();
@@ -36,7 +31,6 @@ export class ContextMenu extends Menu {
         backgroundModule.trigger();
         soundModule.trigger();
         circleModule.trigger();
-        timerModule.trigger();
     }
     contextMenu(event){
         event.preventDefault();
