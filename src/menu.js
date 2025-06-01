@@ -1,18 +1,41 @@
-import RandomFigure from './modules/random-figure';
+// src/context-menu.js
+import { Menu } from './core/menu';
+import { BackgroundModule } from './modules/background.module';
+import { SoundModule } from './modules/sounds.module';
+import { CircleModule } from './modules/circle.module';
+import { RandomFigureModule } from './modules/random-figure'; // импортируем новый модуль
 
-// Контекстное меню
-document.addEventListener('DOMContentLoaded', function() {
-    const contextMenuItem = document.createElement('a');
-    contextMenuItem.href = '#';
-    contextMenuItem.textContent = 'Случайная фигура';
+export class ContextMenu extends Menu {
+    open() {
+        this.add();
+    }
 
-    // Обработчик клика на пункт меню
-    contextMenuItem.addEventListener('click', event => {
-        event.preventDefault(); // отменяем стандартное поведение перехода по ссылке
-        const randomFigure = new RandomFigure();
-        randomFigure.trigger(); // вызываем триггер для показа случайной фигуры
-    });
+    close() {
+        this.el.classList.remove('open');
+    }
 
-    // Вставляем пункт меню в DOM
-    document.body.appendChild(contextMenuItem);
-});
+    add() {
+        document.addEventListener("contextmenu", this.contextMenu.bind(this));
+
+        // Новый модуль случайной фигуры
+        const randomFigureModule = new RandomFigureModule();
+        this.el.innerHTML += randomFigureModule.toHTML();
+        randomFigureModule.trigger();
+    }
+
+    contextMenu(event) {
+        event.preventDefault();
+        this.locationOfMenu(this.el, event);
+        this.el.classList.add('open');
+    }
+
+    locationOfMenu(thisEl, event) {
+        const x = event.clientX;
+        const y = event.clientY;
+        thisEl.style.left = `${x}px`;
+        thisEl.style.top = `${y}px`;
+    }
+}
+
+const contextmenu = new ContextMenu('.menu');
+contextmenu.open();

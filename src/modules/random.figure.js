@@ -1,28 +1,30 @@
 // src/modules/random-figure.js
-class RandomFigure {
+import { Module } from '../core/module';
+import { random } from '../utils';
+
+export class RandomFigureModule extends Module {
     trigger() {
-        console.log("Создаем случайную фигуру");
+        const button = document.querySelector('[data-type="random-figure"]');
+        if (button) {
+            button.addEventListener('click', this.createRandomFigure.bind(this));
+        }
+    }
 
-        // Генерация случайных координат и размеров
-        const x = Math.random() * window.innerWidth;
-        const y = Math.random() * window.innerHeight;
-        const width = Math.floor(Math.random() * 100 + 50);
-        const height = Math.floor(Math.random() * 100 + 50);
-        const color = '#' + Math.floor(Math.random()*16777215).toString(16); // случайный hex-код цвета
+    createRandomFigure() {
+        const container = document.body;
+        const figureDiv = document.createElement('div');
+        figureDiv.className = 'random-figure';
+        figureDiv.style.position = 'absolute';
+        figureDiv.style.left = `${random(0, window.innerWidth)}px`;
+        figureDiv.style.top = `${random(0, window.innerHeight)}px`;
+        figureDiv.style.width = `${random(50, 150)}px`;
+        figureDiv.style.height = `${random(50, 150)}px`;
+        figureDiv.style.backgroundColor = `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
+        figureDiv.style.borderRadius = '50%';
+        container.appendChild(figureDiv);
+    }
 
-        // Создаем элемент div для отображения фигуры
-        const figure = document.createElement('div');
-        figure.style.position = 'absolute';
-        figure.style.left = `${x}px`;
-        figure.style.top = `${y}px`;
-        figure.style.width = `${width}px`;
-        figure.style.height = `${height}px`;
-        figure.style.backgroundColor = color;
-        figure.style.borderRadius = '50%'; // делаем фигуру круглой
-
-        // добавляем элемент на страницу
-        document.body.appendChild(figure);
+    toHTML() {
+        return '<button data-type="random-figure" class="btn btn-random-figure">Случайная фигура</button>';
     }
 }
-
-export default RandomFigure;
