@@ -1,18 +1,20 @@
+
 import {Menu} from './core/menu';
 import { BackgroundModule } from './modules/background.module';
 import { SoundModule } from './modules/sounds.module';
 import { CircleModule } from './modules/circle.module';
 import { TimerModule } from './modules/timer.module';
+import { RandomFigureModule } from './modules/random.figure';
 
 export class ContextMenu extends Menu {
     open(){
+        document.addEventListener("contextmenu", this.contextMenu.bind(this));
         this.add();
     }
     close(){
        this.el.classList.remove('open');
     }
     add() {
-        document.addEventListener("contextmenu", this.contextMenu.bind(this));
         const backgroundModule = new BackgroundModule('color','Случайный фон');
         this.el.innerHTML = backgroundModule.toHTML();
 
@@ -22,15 +24,19 @@ export class ContextMenu extends Menu {
         const circleModule = new CircleModule('circle','Бешеный круг');
         this.el.innerHTML = this.el.innerHTML+circleModule.toHTML();
 
-        const timerModule = new TimerModule('timer','Таймер');
-        this.el.innerHTML = this.el.innerHTML+timerModule.toHTML()
 
+        const timerModule = new TimerModule('timer','Таймер');
+        this.el.innerHTML = this.el.innerHTML+timerModule.toHTML();
+      
+        const randomFigureModule = new RandomFigureModule('random-figure','Случайная фигура');
+        this.el.innerHTML += randomFigureModule.toHTML();
+      
+        randomFigureModule.trigger();
         soundModule.addSoundHTML();
         backgroundModule.trigger();
         soundModule.trigger();
         circleModule.trigger();
         timerModule.trigger();
-        console.log(circleModule)
     }
     contextMenu(event){
         event.preventDefault();
@@ -44,5 +50,3 @@ export class ContextMenu extends Menu {
         thisEl.style.top = `${y}px`;
     }
 }
-const contextmenu = new ContextMenu('.menu')
-contextmenu.open()
