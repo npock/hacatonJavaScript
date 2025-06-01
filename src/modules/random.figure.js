@@ -1,27 +1,26 @@
-import { Module } from "../core/module";
 
-export class RandomFigure extends Module {
+import { Module } from '../core/module';
+import { random } from '../utils';
+
+export class RandomFigureModule extends Module {
     trigger() {
-        console.log("Создаем случайную фигуру");
+        const button = document.querySelector('[data-type="random-figure"]');
+        if (button) {
+            button.addEventListener('click', this.createRandomFigure.bind(this));
+        }
+    }
 
-        // Генерируем случайные координаты и размеры
-        const x = Math.random() * window.innerWidth;
-        const y = Math.random() * window.innerHeight;
-        const width = Math.floor(Math.random() * 100 + 50); // Минимум 50px ширина
-        const height = Math.floor(Math.random() * 100 + 50); // Минимум 50px высота
-        const color = '#' + Math.floor(Math.random()*16777215).toString(16); // Случайный HEX-код цвета
-
-        // Создание элемента div для отображения фигуры
-        const figure = document.createElement('div');
-        figure.style.position = 'absolute';
-        figure.style.left = `${x}px`;
-        figure.style.top = `${y}px`;
-        figure.style.width = `${width}px`;
-        figure.style.height = `${height}px`;
-        figure.style.backgroundColor = color;
-        figure.style.borderRadius = '50%'; // Сделаем круглую фигуру
-
-        // Добавляем элемент на страницу
-        document.body.appendChild(figure);
+    createRandomFigure() {
+        const container = document.body;
+        const figureDiv = document.createElement('div');
+        figureDiv.className = 'random-figure';
+        figureDiv.style.position = 'absolute';
+        figureDiv.style.left = `${random(0, window.innerWidth)}px`;
+        figureDiv.style.top = `${random(0, window.innerHeight)}px`;
+        figureDiv.style.width = `${random(50, 150)}px`;
+        figureDiv.style.height = `${random(50, 150)}px`;
+        figureDiv.style.backgroundColor = `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
+        figureDiv.style.borderRadius = '50%';
+        container.appendChild(figureDiv);
     }
 }
