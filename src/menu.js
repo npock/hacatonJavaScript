@@ -5,13 +5,13 @@ import { CircleModule } from './modules/circle.module';
 
 export class ContextMenu extends Menu {
     open(){
+        document.addEventListener("contextmenu", this.contextMenu.bind(this));
         this.add();
     }
     close(){
        this.el.classList.remove('open');
     }
     add() {
-        document.addEventListener("contextmenu", this.contextMenu.bind(this));
         const backgroundModule = new BackgroundModule('color','Случайный фон');
         this.el.innerHTML = backgroundModule.toHTML();
 
@@ -24,7 +24,6 @@ export class ContextMenu extends Menu {
         backgroundModule.trigger();
         soundModule.trigger();
         circleModule.trigger();
-        console.log(circleModule)
     }
     contextMenu(event){
         event.preventDefault();
@@ -38,5 +37,3 @@ export class ContextMenu extends Menu {
         thisEl.style.top = `${y}px`;
     }
 }
-const contextmenu = new ContextMenu('.menu')
-contextmenu.open()

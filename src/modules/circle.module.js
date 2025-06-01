@@ -15,7 +15,7 @@ export class CircleModule extends Module{
                     }
                     this.drawCircle(timePassed);
                 },20);
-            } 
+            }
             click+=1
         });
     }
