@@ -1,4 +1,4 @@
-// src/modules/random-figure.js
+
 import { Module } from '../core/module';
 import { random } from '../utils';
 

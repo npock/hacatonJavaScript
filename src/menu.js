@@ -3,7 +3,7 @@ import {Menu} from './core/menu';
 import { BackgroundModule } from './modules/background.module';
 import { SoundModule } from './modules/sounds.module';
 import { CircleModule } from './modules/circle.module';
-import { RandomFigureModule } from './modules/random-figure'; // импортируем новый модуль
+import { RandomFigureModule } from './modules/random.figure';
 
 export class ContextMenu extends Menu {
     open(){
@@ -23,7 +23,7 @@ export class ContextMenu extends Menu {
         const circleModule = new CircleModule('circle','Бешеный круг');
         this.el.innerHTML = this.el.innerHTML+circleModule.toHTML();
       
-        const randomFigureModule = new RandomFigureModule();
+        const randomFigureModule = new RandomFigureModule('random-figure','Случайная фигура');
         this.el.innerHTML += randomFigureModule.toHTML();
       
         randomFigureModule.trigger();
@@ -38,7 +38,6 @@ export class ContextMenu extends Menu {
         this.el.classList.add('open');
     }
     locationOfMenu(thisEl,event){
-
         const x = event.clientX;
         const y = event.clientY;
         thisEl.style.left = `${x}px`;
