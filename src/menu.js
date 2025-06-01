@@ -1,43 +1,49 @@
-import {Menu} from './core/menu';
+import { Menu } from './core/menu';
 import { BackgroundModule } from './modules/background.module';
 import { SoundModule } from './modules/sounds.module';
 import { CircleModule } from './modules/circle.module';
 import { TimerModule } from './modules/timer.module';
+import { ClicksModule } from './modules/clicks.module';
 
 export class ContextMenu extends Menu {
-    open(){
+    open() {
         this.add();
     }
-    close(){
-       this.el.classList.remove('open');
+    close() {
+        this.el.classList.remove('open');
     }
     add() {
         document.addEventListener("contextmenu", this.contextMenu.bind(this));
-        const backgroundModule = new BackgroundModule('color','Случайный фон');
+        const backgroundModule = new BackgroundModule('color', 'Случайный фон');
         this.el.innerHTML = backgroundModule.toHTML();
 
-        const soundModule = new SoundModule('sound','Случайный звук');
-        this.el.innerHTML = this.el.innerHTML+soundModule.toHTML();
+        const soundModule = new SoundModule('sound', 'Случайный звук');
+        this.el.innerHTML = this.el.innerHTML + soundModule.toHTML();
 
-        const circleModule = new CircleModule('circle','Бешеный круг');
-        this.el.innerHTML = this.el.innerHTML+circleModule.toHTML();
+        const circleModule = new CircleModule('circle', 'Бешеный круг');
+        this.el.innerHTML = this.el.innerHTML + circleModule.toHTML();
 
-        const timerModule = new TimerModule('timer','Таймер');
-        this.el.innerHTML = this.el.innerHTML+timerModule.toHTML()
+        const timerModule = new TimerModule('timer', 'Таймер');
+        this.el.innerHTML = this.el.innerHTML + timerModule.toHTML()
+
+        const clicksModule = new ClicksModule('click-counter', 'Считать клики за 3 секунды');
+        this.el.innerHTML += clicksModule.toHTML();
+
 
         soundModule.addSoundHTML();
         backgroundModule.trigger();
         soundModule.trigger();
         circleModule.trigger();
         timerModule.trigger();
+        clicksModule.trigger();
         console.log(circleModule)
     }
-    contextMenu(event){
+    contextMenu(event) {
         event.preventDefault();
-        this.locationOfMenu(this.el,event);
+        this.locationOfMenu(this.el, event);
         this.el.classList.add('open');
     }
-    locationOfMenu(thisEl,event){
+    locationOfMenu(thisEl, event) {
         const x = event.clientX;
         const y = event.clientY;
         thisEl.style.left = `${x}px`;
