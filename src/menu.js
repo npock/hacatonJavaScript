@@ -1,6 +1,7 @@
 import {Menu} from './core/menu';
 import { BackgroundModule } from './modules/background.module';
 import { SoundModule } from './modules/sounds.module';
+import { CircleModule } from './modules/circle.module';
 
 export class ContextMenu extends Menu {
     open(){
@@ -16,9 +17,14 @@ export class ContextMenu extends Menu {
 
         const soundModule = new SoundModule('sound','Случайный звук');
         this.el.innerHTML = this.el.innerHTML+soundModule.toHTML();
+
+        const circleModule = new CircleModule('circle','Бешеный круг');
+        this.el.innerHTML = this.el.innerHTML+circleModule.toHTML();
         soundModule.addSoundHTML();
         backgroundModule.trigger();
         soundModule.trigger();
+        circleModule.trigger();
+        console.log(circleModule)
     }
     contextMenu(event){
         event.preventDefault();
@@ -33,5 +39,4 @@ export class ContextMenu extends Menu {
     }
 }
 const contextmenu = new ContextMenu('.menu')
-//contextmenu.addCircle()
 contextmenu.open()
