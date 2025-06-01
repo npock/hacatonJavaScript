@@ -23,8 +23,4 @@ export class RandomFigureModule extends Module {
         figureDiv.style.borderRadius = '50%';
         container.appendChild(figureDiv);
     }
-
-    toHTML() {
-        return '<button data-type="random-figure" class="btn btn-random-figure">Случайная фигура</button>';
-    }
 }
